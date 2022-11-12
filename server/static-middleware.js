@@ -27,3 +27,4 @@ function devMiddleware() {
     require('webpack-hot-middleware')(webpack)
   ];
 }
+module.exports = staticMiddleware;
