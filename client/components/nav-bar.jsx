@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function NavBar(props) {
+  // console.log('PROPS:', props);
+
   return (
     <nav className="navbar-bg-color">
       <div className="bg-gradient-to-r gradient-cotton-candy" />
@@ -15,12 +17,13 @@ export default function NavBar(props) {
             </a>
           </div>
           <div />
-          <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
+          <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items" onClick={() => props.pageNavigate('register') }>
             Register
           </div>
-          <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
+          <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items" onClick={() => props.pageNavigate('sign-in') }>
             Sign in
           </div>
+          <a href="/character-creation" >random</a>
         </div>
       </div>
     </nav>

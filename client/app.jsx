@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './components/nav-bar';
 import parseRoute from './pages/parse-route';
 import Home from './components/home';
+import CharacterCreation from './components/character-creation';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,11 +25,15 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
+
+    if (route.path === '') {
+      return <Home />;
+    }
     if (route.path === 'home') {
       return <NavBar />;
     }
-    if (route.path === '') {
-      return <Home />;
+    if (route.path === 'character-creation') {
+      return <CharacterCreation />;
     }
   }
 

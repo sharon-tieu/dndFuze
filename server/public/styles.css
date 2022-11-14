@@ -26,6 +26,10 @@
   margin-top: 5px;
 }
 
+.margin-top-10px {
+  margin-top: 10px;
+}
+
 .margin-bottom-7px {
   margin-bottom: 7px;
 }
@@ -39,6 +43,6 @@
   margin: 0 auto;
 }
 
-.align-items-center {
-  align-items: center;
+#registraion-form-container {
+  border: 1px solid red;
 }

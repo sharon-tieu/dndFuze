@@ -1,6 +1,6 @@
 require('dotenv/config');
 const pg = require('pg');
-const argon2 = require('argon2');
+const argon2 = require('argon2'); // eslint-disable-line
 const jwt = require('jsonwebtoken');
 const ClientError = require('./client-error');
 const authorizationMiddleware = require('./authorization-middleware');
@@ -9,7 +9,7 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 
-const db = new pg.Pool({
+const db = new pg.Pool({ // eslint-disable-line
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
@@ -32,6 +32,7 @@ app.get('/api/hello', (req, res) => {
 
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password } = req.body;
+  console.log('REQ.BODY:', req.body);
   if (!username || !password) {
     throw new ClientError(400, 'username and password are required fields');
   }
@@ -39,11 +40,12 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "username", "createdAt"
+        INSERT INTO "users" ("username", "hashedPassword")
+        VALUES ($1, $2)
+        RETURNING "username", "username"
       `;
       const params = [username, hashedPassword];
+
       return db.query(sql, params);
     })
     .then(result => {
@@ -59,7 +61,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "userId",
+    select "username",
            "hashedPassword"
       from "users"
      where "username" = $1
@@ -71,14 +73,14 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword } = user;
+      const { username, hashedPassword } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, username };
+          const payload = { username };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
@@ -88,20 +90,20 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 /* ⛔ Every route after this middleware requires a token! ⛔ */
 
-app.use(authorizationMiddleware);
+// app.use(authorizationMiddleware);
 
 app.post('/api/character-creation', (req, res, next) => {
-  const { userId } = req.user;
+  const { username } = req.user;
   const { question, answer } = req.body;
   if (!question || !answer) {
     throw new ClientError(400, 'question and answer are required fields');
   }
   const sql = `
-    insert into "character-creation" ("userId", "question", "answer")
+    insert into "character-creation" ("username", "question", "answer")
     values ($1, $2, $3)
     returning *
   `;
-  const params = [userId, question, answer];
+  const params = [username, question, answer];
   db.query(sql, params)
     .then(result => {
       const [characterCreation] = result.rows;
@@ -111,13 +113,13 @@ app.post('/api/character-creation', (req, res, next) => {
 });
 
 app.get('/api/character-creation', (req, res, next) => {
-  const { userId } = req.user;
+  const { username } = req.user;
   const sql = `
     select *
       from "character-creation"
-     where "userId" = $1
+     where "username" = $1
   `;
-  const params = [userId];
+  const params = [username];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
