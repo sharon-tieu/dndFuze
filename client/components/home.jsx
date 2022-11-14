@@ -1,7 +1,8 @@
 import React from 'react';
-import NavBar from '../components/nav-bar';
-import SignUpForm from '../components/create-account';
-import SignInForm from '../components/sign-in';
+// import NavBar from '../components/nav-bar';
+// import SignUpForm from '../components/create-account';
+// import SignInForm from '../components/sign-in';
+import CharacterCreation from '../components/character-creation';
 import './styles.css';
 
 export default class Home extends React.Component {
@@ -22,13 +23,13 @@ export default class Home extends React.Component {
   }
 
   render() {
-    console.log('this.state:', this.state);
+    // console.log('this.state:', this.state);
     return (
-      <div className="h-100 bg-purple">
-        <NavBar pageNavigate={ this.pageNavigate } />
-        { this.state.currentPage === 'register' ? <SignUpForm /> : this.state.currentPage === 'sign-in' ? <SignInForm /> : null }
-      </div>
-      // <CharacterCreation />
+      // <div className="h-100 bg-purple">
+      //   <NavBar pageNavigate={ this.pageNavigate } />
+      //   { this.state.currentPage === 'register' ? <SignUpForm /> : this.state.currentPage === 'sign-in' ? <SignInForm /> : null }
+      // </div>
+      <CharacterCreation />
     );
   }
 }

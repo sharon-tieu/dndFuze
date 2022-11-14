@@ -38,7 +38,7 @@ export default class CharacterCreation extends React.Component {
           <div className="px-8 max-w-6xl mx-auto">
             <div className="flex justify-between">
               <div>
-                <h1>Character Creation</h1>
+                <h1 className="font-family-albert-sans navbar-items">Character Creation</h1>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default class CharacterCreation extends React.Component {
               </h1>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="character-creation">
+                  htmlFor="character-creation" required>
                   Character Name
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -61,9 +61,12 @@ export default class CharacterCreation extends React.Component {
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="cars">Choose Race</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="race">Race
+                </label>
                 <div />
-                <select id="race" name="race">
+                <select id="race" name="race" required>
+                  <option value="">Select an option</option>
                   <option value="human">Human</option>
                   <option value="elf">Elf</option>
                   <option value="dragonborn">Dragonborn</option>
@@ -73,9 +76,40 @@ export default class CharacterCreation extends React.Component {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Class
                 </label>
-                <input className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' : 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="password"
-                />
+                <select id="class" name="class" required>
+                  <option value="">Select an option</option>
+                  <option value="warrior">Warrior</option>
+                  <option value="cleric">Cleric</option>
+                  <option value="assassin">Assassin</option>
+                </select>
+              </div>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Starting Weapon
+                </label>
+                <select id="weapon" name="weapon" required>
+                  <option value="">Select an option</option>
+                  <option value="dagger">Dagger</option>
+                  <option value="one-handed axe">One-handed Axe</option>
+                  <option value="two-handed sword">Two-handed Sword</option>
+                </select>
+              </div>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Personality
+                </label>
+                <select id="weapon" name="weapon" required>
+                  <option value="">Select an option</option>
+                  <option value="Lawful Good">Lawful Good</option>
+                  <option value="Lawful Neutral">Lawful Neutral</option>
+                  <option value="Lawful Evil">Lawful Evil</option>
+                  <option value="Neutral Good">Neutral Good</option>
+                  <option value="Neutral">Neutral</option>
+                  <option value="Neutral Evil">Neutral Evil</option>
+                  <option value="Chaotic Good">Chaotic Good</option>
+                  <option value="Chaotic Neutral">Chaotic Neutral</option>
+                  <option value="Chaotic Evil">Chaotic Evil</option>
+                </select>
               </div>
               <div className="text-align-center">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focuse:outline-none focus:shadow-outline" type="button" onClick={this.handleSubmit}>
@@ -85,7 +119,6 @@ export default class CharacterCreation extends React.Component {
             </form>
           </div>
         </div>
-
       </div>
     );
   }
