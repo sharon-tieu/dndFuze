@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../components/nav-bar';
 import SignUpForm from '../components/create-account';
 import SignInForm from '../components/sign-in';
-// import CharacterCreation from '../components/character-creation';
 import './styles.css';
 
 export default class Home extends React.Component {
