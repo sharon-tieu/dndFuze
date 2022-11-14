@@ -1,9 +1,18 @@
 import React from 'react';
 
 export default class CharacterCreation extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClicked: ''
+    };
+    this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
+  }
+
+  handleAppDrawerClick() {
+    console.log('detected!');
+    this.setState({ isClicked: !this.state.isClicked });
+  }
 
   render() {
     return (
@@ -14,8 +23,16 @@ export default class CharacterCreation extends React.Component {
             <div className="flex justify-between">
               <div>
                 <a href="#" className="flex items-center py-2 px-3 navbar-item-color font-family-alber-sans">
-                  <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                  <svg className="h-6 w-6 mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                        onClick={ this.handleAppDrawerClick }>
+                    <path strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                   </svg>
                   <span>DnDFuze</span>
                 </a>
@@ -33,36 +50,47 @@ export default class CharacterCreation extends React.Component {
           </div>
         </nav>
 
-        <nav className="margin-top-10px navbar-bg-color">
+        <nav className="margin-top-10px navbar-bg-color page-bar-height-40px">
           <div className="bg-gradient-to-r gradient-cotton-candy" />
           <div className="px-8 max-w-6xl mx-auto">
-            <div className="flex justify-between">
+            <div className="flex justify-center">
               <div>
-                <h1 className="font-family-albert-sans navbar-items">Character Creation</h1>
+                <h1 className="text-align-center navbar-item-color font-family-albert-sans navbar-items">
+                  Character Creation
+                </h1>
               </div>
             </div>
           </div>
         </nav>
 
+        <div className="red-border margin-top-10px padding-10px">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 plus-app-drawer">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </div>
+
         <div id="character-creation-form">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {/* <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
               <h1 className="text-3xl hover:text-base text-center margin-bottom-7px">
                 Character Creation
               </h1>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="character-creation" required>
+                  htmlFor="character-creation">
                   Character Name
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder="character name"
+                  required
                 />
               </div>
               <div className="mb-6">
                 <label className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="race">Race
+                        htmlFor="race"
+                        required>
+                  Race
                 </label>
                 <div />
                 <select id="race" name="race" required>
@@ -116,7 +144,7 @@ export default class CharacterCreation extends React.Component {
                   Submit
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>
