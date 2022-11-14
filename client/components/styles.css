@@ -1,0 +1,12 @@
+#registration-form-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+#registration-form {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
