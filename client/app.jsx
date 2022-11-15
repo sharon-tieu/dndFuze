@@ -8,8 +8,12 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: null,
+      isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -18,18 +22,31 @@ export default class App extends React.Component {
       const parsedRoute = parseRoute(route);
 
       this.setState({
-        route: parsedRoute
+        route: parsedRoute(window.location.hash)
       });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? jwtDecode(token) : null;
+    this.setState({ user, isAuthorizing: false });
+  }
+
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user });
+  }
+
+  handleSignOut() {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
   }
 
   renderPage() {
     const { route } = this.state;
-
     if (route.path === '') {
       return <Home />;
     }
-    if (route.path === 'home') {
+    if (route.path === 'sign-in' || route.path === 'sign-up') {
       return <NavBar />;
     }
     if (route.path === 'character-creation') {

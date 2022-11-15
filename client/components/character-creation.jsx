@@ -3,8 +3,12 @@ import React from 'react';
 export default class CharacterCreation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isClicked: false };
+    this.state = {
+      isClicked: false,
+      createClicked: false
+    };
     this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
+    this.handleCharacterCreationClick = this.handleCharacterCreationClick.bind(this);
   }
 
   handleAppDrawerClick() {
@@ -13,17 +17,22 @@ export default class CharacterCreation extends React.Component {
   }
 
   handleCharacterCreationClick() {
-
+    // console.log('create detected');
+    this.setState({
+      createClicked: !this.state.createClicked,
+      isClicked: false
+    });
   }
 
   render() {
     let appDrawer = 'M12 4.5v15m7.5-7.5h-15';
     let modal = 'hide';
-    let hide = 'hide';
+    let visibility = 'hide';
+    const createForm = this.state.createClicked ? '' : 'hide';
     if (this.state.isClicked) {
       appDrawer = 'M6 18L18 6M6 6l12 12';
       modal = 'modal-bg-grey';
-      hide = 'visibile';
+      visibility = 'visibile';
     }
 
     return (
@@ -83,8 +92,10 @@ export default class CharacterCreation extends React.Component {
                 onClick={ this.handleAppDrawerClick }
               />
             </svg>
-            <div className={ hide }>
-              <h2 className="margin-top-20px padding-10px menu-item-hover-underline">
+            <div className={ visibility }>
+              <h2
+                className="margin-top-20px padding-10px menu-item-hover-underline"
+                onClick={ this.handleCharacterCreationClick }>
                 Create
               </h2>
             </div>
@@ -95,9 +106,9 @@ export default class CharacterCreation extends React.Component {
           </div>
         </div>
 
-        <div id="character-creation-form" className={ hide }>
+        <div id="character-creation-form">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form className={`${createForm} bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4`}>
               <h1 className="text-3xl hover:text-base text-center margin-bottom-7px">
                 Character Creation
               </h1>
