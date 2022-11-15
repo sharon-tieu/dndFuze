@@ -24,6 +24,11 @@ export default class CharacterCreation extends React.Component {
     });
   }
 
+  handleCharacterSubmit(event) {
+    console.log('character state:', this.state);
+    axios.post('/api/character-creation', { });
+  }
+
   render() {
     let appDrawer = 'M12 4.5v15m7.5-7.5h-15';
     let modal = 'hide';

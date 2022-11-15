@@ -1,4 +1,5 @@
 import React from 'react';
+import jwtDecode from 'jwt-decode';
 import NavBar from './components/nav-bar';
 import parseRoute from './pages/parse-route';
 import Home from './components/home';
@@ -43,18 +44,25 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
+
     if (route.path === '') {
       return <Home />;
     }
     if (route.path === 'sign-in' || route.path === 'sign-up') {
       return <NavBar />;
     }
-    if (route.path === 'character-creation') {
+    if (route.path === 'user-character') {
       return <CharacterCreation />;
     }
   }
 
   render() {
-    return this.renderPage();
+    if (this.state.isAuthorizing) return null;
+    const { user, route } = this.state;
+    const { handleSignIn, handleSignOut } = this;
+    const contextValue = { user, route, handleSignIn, handleSignOut };
+    return (
+      this.renderPage()
+    );
   }
 }

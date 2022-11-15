@@ -2,6 +2,7 @@ import AppContext from '../lib/app-context';
 
 export default function Redirect(props) {
   const url = new URL(window.location);
+
   if (props.to === '') {
     url.hash = '#';
   } else {

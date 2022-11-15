@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Redirect from '../components/redirect';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -35,6 +36,9 @@ export default class SignInForm extends React.Component {
   }
 
   render() {
+    const user = this.context.user;
+    if (user) return <Redirect to="#user-character" />;
+
     return (
       <div id="registration-form-container">
         <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
