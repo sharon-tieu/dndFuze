@@ -3,18 +3,29 @@ import React from 'react';
 export default class CharacterCreation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isClicked: ''
-    };
+    this.state = { isClicked: false };
     this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
   }
 
   handleAppDrawerClick() {
-    console.log('detected!');
+    // console.log('detected!');
     this.setState({ isClicked: !this.state.isClicked });
   }
 
+  handleCharacterCreationClick() {
+
+  }
+
   render() {
+    let appDrawer = 'M12 4.5v15m7.5-7.5h-15';
+    let modal = 'hide';
+    let hide = 'hide';
+    if (this.state.isClicked) {
+      appDrawer = 'M6 18L18 6M6 6l12 12';
+      modal = 'modal-bg-grey';
+      hide = 'visibile';
+    }
+
     return (
       <div>
         <nav className="navbar-bg-color">
@@ -23,21 +34,14 @@ export default class CharacterCreation extends React.Component {
             <div className="flex justify-between">
               <div>
                 <a href="#" className="flex items-center py-2 px-3 navbar-item-color font-family-alber-sans">
-                  <svg className="h-6 w-6 mr-2"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                        onClick={ this.handleAppDrawerClick }>
-                    <path strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                  <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                   </svg>
                   <span>DnDFuze</span>
                 </a>
               </div>
               <div />
+
               <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
                 Characters
               </div>
@@ -50,7 +54,7 @@ export default class CharacterCreation extends React.Component {
           </div>
         </nav>
 
-        <nav className="margin-top-10px navbar-bg-color page-bar-height-40px">
+        {/* <nav className="margin-top-10px navbar-bg-color page-bar-height-40px">
           <div className="bg-gradient-to-r gradient-cotton-candy" />
           <div className="px-8 max-w-6xl mx-auto">
             <div className="flex justify-center">
@@ -61,17 +65,39 @@ export default class CharacterCreation extends React.Component {
               </div>
             </div>
           </div>
-        </nav>
+        </nav> */}
 
-        <div className="red-border margin-top-10px padding-10px">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 plus-app-drawer">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
+        <div className="row">
+
+          <div className="margin-top-10px padding-10px col-30 vh-100">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 app-drawer-closed">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d={ appDrawer }
+                onClick={ this.handleAppDrawerClick }
+              />
+            </svg>
+            <div className={ hide }>
+              <h2 className="margin-top-20px padding-10px menu-item-hover-underline">
+                Create
+              </h2>
+            </div>
+          </div>
+
+          <div className={ modal }>
+            <div className="margin-top-10px padding-10px col-70" />
+          </div>
         </div>
 
-        <div id="character-creation-form">
+        <div id="character-creation-form" className={ hide }>
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
-            {/* <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
               <h1 className="text-3xl hover:text-base text-center margin-bottom-7px">
                 Character Creation
               </h1>
@@ -144,7 +170,7 @@ export default class CharacterCreation extends React.Component {
                   Submit
                 </button>
               </div>
-            </form> */}
+            </form>
           </div>
         </div>
       </div>
