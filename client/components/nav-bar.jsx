@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default function NavBar(props) {
   // console.log('PROPS:', props);

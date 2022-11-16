@@ -4,6 +4,7 @@ import NavBar from './components/nav-bar';
 import parseRoute from './pages/parse-route';
 import Home from './components/home';
 import CharacterCreation from './components/character-creation';
+import AppContext from './lib/app-context';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,11 +20,11 @@ export default class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('hashchange', () => {
-      const route = window.location.hash;
-      const parsedRoute = parseRoute(route);
+      // const route = window.location.hash;
+      // const parsedRoute = parseRoute(route);
 
       this.setState({
-        route: parsedRoute(window.location.hash)
+        route: parseRoute(window.location.hash)
       });
     });
     const token = window.localStorage.getItem('react-context-jwt');
@@ -62,7 +63,9 @@ export default class App extends React.Component {
     const { handleSignIn, handleSignOut } = this;
     const contextValue = { user, route, handleSignIn, handleSignOut };
     return (
-      this.renderPage()
+      <AppContext.Provider value={contextValue}>
+        {this.renderPage()}
+      </AppContext.Provider>
     );
   }
 }
