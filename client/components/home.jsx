@@ -22,13 +22,18 @@ export default class Home extends React.Component {
   }
 
   render() {
-    console.log('this.state:', this.state);
+    // console.log('this.state:', this.state);
     return (
-      <div className="h-100 bg-purple">
-        <NavBar pageNavigate={ this.pageNavigate } />
-        { this.state.currentPage === 'register' ? <SignUpForm /> : this.state.currentPage === 'sign-in' ? <SignInForm /> : null }
+      <div>
+        <div className="h-100 bg-purple">
+          <NavBar pageNavigate={ this.pageNavigate } />
+          { this.state.currentPage === 'register'
+            ? <SignUpForm />
+            : this.state.currentPage === 'sign-in'
+              ? <SignInForm />
+              : null }
+        </div>
       </div>
-      // <CharacterCreation />
     );
   }
 }

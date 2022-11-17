@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ export default class SignInForm extends React.Component {
     axios.post('/api/auth/sign-in', { username: this.state.username, password: this.state.password })
       .then(res => {
         console.log('res.data:', res.data);
-        this.setState({ username: '', password: '' });
+        this.context.handleSignIn(res.data);
       })
       .catch(err => {
         console.log('res.err:', err);
@@ -35,6 +37,10 @@ export default class SignInForm extends React.Component {
   }
 
   render() {
+    const user = this.context.user;
+    console.log('USER:', user);
+    if (user) return <Redirect to="#user-character" />;
+
     return (
       <div id="registration-form-container">
         <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
@@ -77,3 +83,5 @@ export default class SignInForm extends React.Component {
     );
   }
 }
+
+SignInForm.contextType = AppContext;

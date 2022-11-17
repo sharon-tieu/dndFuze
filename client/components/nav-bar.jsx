@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default function NavBar(props) {
   // console.log('PROPS:', props);
@@ -23,7 +24,6 @@ export default function NavBar(props) {
           <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items" onClick={() => props.pageNavigate('sign-in') }>
             Sign in
           </div>
-          <a href="/character-creation" >random</a>
         </div>
       </div>
     </nav>

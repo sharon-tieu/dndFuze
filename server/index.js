@@ -62,7 +62,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   }
   const sql = `
     select "username",
-           "hashedPassword"
+           "hashedPassword",
+           "userId"
       from "users"
      where "username" = $1
   `;
@@ -73,14 +74,15 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { username, hashedPassword } = user;
+      console.log('USER:', user);
+      const { hashedPassword } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { username };
+          const payload = { userId: user.userId };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
@@ -90,24 +92,43 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 /* ⛔ Every route after this middleware requires a token! ⛔ */
 
-// app.use(authorizationMiddleware);
+app.use(authorizationMiddleware);
 
-app.post('/api/character-creation', (req, res, next) => {
-  const { username } = req.user;
-  const { question, answer } = req.body;
-  if (!question || !answer) {
-    throw new ClientError(400, 'question and answer are required fields');
+app.post('/api/character-creation', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  console.log('USERID:', userId);
+  const {
+    characterName,
+    characterRace,
+    characterClass,
+    characterStartingWeapon,
+    characterPersonality
+  } = req.body;
+  if (!characterName) {
+    throw new ClientError(400, 'Missing Character Name');
+  }
+  if (!characterRace) {
+    throw new ClientError(400, 'Missing Character Race');
+  }
+  if (!characterClass) {
+    throw new ClientError(400, 'Missing Character Class');
+  }
+  if (!characterStartingWeapon) {
+    throw new ClientError(400, 'Missing Character Starting Weapon');
+  }
+  if (!characterPersonality) {
+    throw new ClientError(400, 'Missing Character Personality');
   }
   const sql = `
-    insert into "character-creation" ("username", "question", "answer")
-    values ($1, $2, $3)
+    insert into "charactersCreated" ("userId", "characterName", "characterRace", "characterClass", "characterStartingWeapon", "characterPersonality")
+    values ($1, $2, $3, $4, $5, $6)
     returning *
   `;
-  const params = [username, question, answer];
+  const params = [userId, characterName, characterRace, characterClass, characterStartingWeapon, characterPersonality];
   db.query(sql, params)
     .then(result => {
-      const [characterCreation] = result.rows;
-      res.status(201).json(characterCreation);
+      const [newCharacter] = result.rows;
+      res.status(201).json(newCharacter);
     })
     .catch(err => next(err));
 });
@@ -116,7 +137,7 @@ app.get('/api/character-creation', (req, res, next) => {
   const { username } = req.user;
   const sql = `
     select *
-      from "character-creation"
+      from "charactersCreated"
      where "username" = $1
   `;
   const params = [username];

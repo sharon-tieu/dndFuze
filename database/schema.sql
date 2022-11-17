@@ -21,13 +21,13 @@ CREATE TABLE "public"."charactersCreated" (
   "characterClass" TEXT NOT NULL,
   "characterStartingWeapon" TEXT NOT NULL,
   "characterPersonality" TEXT NOT NULL,
-  "level" integer NOT NULL,
-  "strength" integer NOT NULL,
-  "wisdom" integer NOT NULL,
-  "speed" integer NOT NULL,
-  "charisma" integer NOT NULL,
-  "currentHealthPoints" integer NOT NULL,
-  "currentMaxHealthPoints" integer NOT NULL,
+  "level" integer,
+  "strength" integer,
+  "wisdom" integer,
+  "speed" integer,
+  "charisma" integer,
+  "currentHealthPoints" integer,
+  "currentMaxHealthPoints" integer,
   CONSTRAINT "charactersCreated_pk" PRIMARY KEY ("characterId")
 ) WITH (
   OIDS=FALSE
