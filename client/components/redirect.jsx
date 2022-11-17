@@ -1,5 +1,3 @@
-import AppContext from '../lib/app-context';
-
 export default function Redirect(props) {
   const url = new URL(window.location);
 
@@ -11,5 +9,3 @@ export default function Redirect(props) {
   window.location.replace(url);
   return null;
 }
-
-Redirect.contextType = AppContext;

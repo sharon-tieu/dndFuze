@@ -71,16 +71,12 @@
   display: none;
 }
 
-.app-drawer {
-  border: 1px solid red;
-}
-
 .col-30 {
-  width: 30%;
+  width: 20vw;
 }
 
 .col-70 {
-  width: 900px;
+  width: 80vw;
 }
 
 .modal-bg-grey {
