@@ -67,6 +67,19 @@ export default class ViewCharacters extends React.Component {
             </div>
           </div>
         </nav>
+        { this.state.characters.map(character => {
+          return (
+            <div key={character.characterId} style={{ gap: '5px' }} className="flex font-family-alber-san">
+              <div >
+                {character.characterName}
+              </div>
+              <div >
+                {character.characterRace}
+              </div>
+            </div>
+          );
+        })
+      }
       </div>
     );
   }
