@@ -1,26 +1,35 @@
 import React from 'react';
 import axios from 'axios';
+
 // import CharacterCreation from './character-creation';
 
 export default class ViewCharacters extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       characters: []
     };
   }
 
   componentDidMount() {
-    axios.get('/api/characters')
+    const token = window.localStorage.getItem('react-context-jwt');
+
+    axios.get('/api/character', {
+      params: {
+        userId: 1
+      },
+      headers: {
+        'X-Access-TOKEN': token
+      }
+    })
       .then(res => {
-        console.log('server response:', res);
+        // console.log('server response:', res);
         this.setState({
           characters: res.data
         });
       })
       .catch(err => {
-        console.log('res.err:', err);
+        console.log('ERROR:', err);
       });
   }
 

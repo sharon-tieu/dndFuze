@@ -134,18 +134,22 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
 });
 
 app.get('/api/character', authorizationMiddleware, (req, res, next) => {
-  const { userId } = req.user;
+  // try {
+  const { userId } = req.query;
   const sql = `
-    select *
-      from "charactersCreated"
-     where "userId" = $1
-  `;
+      select *
+        from "charactersCreated"
+       where "userId" = $1
+    `;
   const params = [userId];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+  // } catch (error) {
+  //   console.error({ error });
+  // }
 });
 
 app.use(errorMiddleware);
