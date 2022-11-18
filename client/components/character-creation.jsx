@@ -58,7 +58,7 @@ export default class CharacterCreation extends React.Component {
 
     console.log('this.state.formvalues:', this.state.formValues);
 
-    axios.post('/api/character-creation', this.state.formValues, config)
+    axios.post('/api/character', this.state.formValues, config)
       .then(res => {
         console.log('CHAR CREATION RES.DATA:', res.data);
         this.setState({
@@ -103,9 +103,9 @@ export default class CharacterCreation extends React.Component {
               </div>
               <div />
 
-              <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
+              <a href='#view-characters' className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
                 Characters
-              </div>
+              </a>
               <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
                 <svg xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -133,7 +133,6 @@ export default class CharacterCreation extends React.Component {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 d={ appDrawer }
-                // onClick={ this.handleAppDrawerClick }
               />
             </svg>
             <div className={ visibility }>
@@ -146,7 +145,7 @@ export default class CharacterCreation extends React.Component {
           </div>
 
           <div className={ modal }>
-            <div className="margin-top-10px padding-10px col-70" />
+            <div className="margin-top-10px padding-10px col-70 vh-100" />
           </div>
         </div>
 
@@ -244,6 +243,25 @@ export default class CharacterCreation extends React.Component {
                   Submit
                 </button>
               </div>
+
+              {/* <h1 className="padding-20px text-3xl hover:text-base text-center margin-bottom-7px">
+                Created!
+              </h1>
+              <div>
+                <div className="text-center">
+
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 display-inline">
+                    <path strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+              </div> */}
             </form>
           </div>
         </div>
