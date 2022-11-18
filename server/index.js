@@ -135,7 +135,7 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
 
 app.get('/api/character', authorizationMiddleware, (req, res, next) => {
   // try {
-  const { userId } = req.query;
+  const { userId } = req.user;
   const sql = `
       select *
         from "charactersCreated"

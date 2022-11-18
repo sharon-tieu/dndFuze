@@ -13,11 +13,10 @@ export default class ViewCharacters extends React.Component {
 
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
-
     axios.get('/api/character', {
-      params: {
-        userId: 1
-      },
+      // params: {
+      //   userId: 1
+      // },
       headers: {
         'X-Access-TOKEN': token
       }
@@ -69,12 +68,14 @@ export default class ViewCharacters extends React.Component {
         </nav>
         { this.state.characters.map(character => {
           return (
-            <div key={character.characterId} style={{ gap: '5px' }} className="flex font-family-alber-san">
-              <div >
-                {character.characterName}
-              </div>
-              <div >
-                {character.characterRace}
+            <div key={character.characterId}
+                  style={{ gap: '5px' }}
+                  className="flex font-family-alber-san font-bold margin-top-10px">
+              <div className="w-2/3 max-w-xs inline-block margin-0-auto justify-center character-card bg-cyan-500 shadow-lg shadow-cyan-500/50 rounded-lg padding-20px">
+                <div className="mb-2">
+                  <h3 className="text-gray-700">Character Name:</h3>
+                  <h3 className="text-gray-700">{character.characterName}</h3>
+                </div>
               </div>
             </div>
           );

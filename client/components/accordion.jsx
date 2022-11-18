@@ -5,9 +5,7 @@ export const Accordion = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpenAccordion = () => {
-
     setOpen(!open);
-
   };
 
   return (

@@ -172,7 +172,7 @@ export default class CharacterCreation extends React.Component {
                 <label className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor="race"
                         required>
-                  Race
+                  Species
                 </label>
                 <div />
                 <select id="race"
