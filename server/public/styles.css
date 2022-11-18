@@ -63,6 +63,10 @@
   padding: 10px;
 }
 
+.padding-20px {
+  padding: 20px;
+}
+
 .app-drawer-closed:hover {
   cursor: pointer;
 }
@@ -79,6 +83,10 @@
   width: 80vw;
 }
 
+.vh-100 {
+  height: 100vh;
+}
+
 .modal-bg-grey {
   background-color: #282222bd;
 }
@@ -92,10 +100,27 @@
   text-decoration: underline;
 }
 
-.vh-100 {
-  height: 100vh;
-}
-
 .visible {
   visibility: visible;
+}
+
+.display-inline {
+  display: inline !important;
+}
+
+.character-card {
+  background-image: linear-gradient(135deg, #ccd3ee 40%, #929c9c9f);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.character-card:hover {
+  cursor: pointer;
+}
+
+.character-card:active {
+  box-shadow: 2px 2px 5px #747477;
 }

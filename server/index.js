@@ -94,7 +94,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.post('/api/character-creation', authorizationMiddleware, (req, res, next) => {
+app.post('/api/character', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   console.log('USERID:', userId);
   const {
@@ -133,19 +133,23 @@ app.post('/api/character-creation', authorizationMiddleware, (req, res, next) =>
     .catch(err => next(err));
 });
 
-app.get('/api/character-creation', (req, res, next) => {
-  const { username } = req.user;
+app.get('/api/character', authorizationMiddleware, (req, res, next) => {
+  // try {
+  const { userId } = req.user;
   const sql = `
-    select *
-      from "charactersCreated"
-     where "username" = $1
-  `;
-  const params = [username];
+      select *
+        from "charactersCreated"
+       where "userId" = $1
+    `;
+  const params = [userId];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+  // } catch (error) {
+  //   console.error({ error });
+  // }
 });
 
 app.use(errorMiddleware);

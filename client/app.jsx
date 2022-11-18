@@ -4,6 +4,8 @@ import NavBar from './components/nav-bar';
 import parseRoute from './pages/parse-route';
 import Home from './components/home';
 import CharacterCreation from './components/character-creation';
+import ViewCharacters from './components/view-characters';
+import NotFound from './pages/not-found';
 import AppContext from './lib/app-context';
 
 export default class App extends React.Component {
@@ -19,6 +21,11 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    /**
+    * Listen for hash change events on the window object
+    * Each time the window.location.hash changes, parse
+    * it with the parseRoute() function and update state
+    */
     window.addEventListener('hashchange', () => {
       this.setState({
         route: parseRoute(window.location.hash)
@@ -52,6 +59,10 @@ export default class App extends React.Component {
     if (route.path === 'user-character') {
       return <CharacterCreation />;
     }
+    if (route.path === 'view-characters') {
+      return <ViewCharacters />;
+    }
+    return <NotFound />;
   }
 
   render() {
