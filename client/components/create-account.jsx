@@ -24,7 +24,6 @@ export default class SignUpForm extends React.Component {
   handleSubmit(event) {
     console.log('state:', this.state);
     event.preventDefault();
-    // axios is used for an api call
     axios.post('/api/auth/sign-up', { username: this.state.username, password: this.state.password })
       .then(res => {
         console.log('res.data:', res.data);

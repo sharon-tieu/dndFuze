@@ -14,9 +14,6 @@ export default class ViewCharacters extends React.Component {
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
     axios.get('/api/character', {
-      // params: {
-      //   userId: 1
-      // },
       headers: {
         'X-Access-TOKEN': token
       }
