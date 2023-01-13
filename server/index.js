@@ -134,7 +134,6 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
 });
 
 app.get('/api/character', authorizationMiddleware, (req, res, next) => {
-  // try {
   const { userId } = req.user;
   const sql = `
       select *
@@ -147,9 +146,23 @@ app.get('/api/character', authorizationMiddleware, (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
-  // } catch (error) {
-  //   console.error({ error });
-  // }
+
+});
+
+app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.query.character.characterId;
+  // req.query.characterId;
+  const sql = `
+    select *
+      from "charactersCreated"
+      where "characterId" = $1
+    `;
+  const params = [characterId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
