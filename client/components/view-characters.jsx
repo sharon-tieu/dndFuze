@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-// import HomeNavBar from './home-nav-bar';
 import NavBar from './nav-bar';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './loading-spinner';
+// import HomeNavBar from './home-nav-bar';
 // import CharacterCreation from './character-creation';
 
 export default class ViewCharacters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // getData: true,
+      getData: true,
       characters: []
     };
   }
@@ -25,8 +25,8 @@ export default class ViewCharacters extends React.Component {
       .then(res => {
         // console.log('server response:', res);
         this.setState({
-          // getData: false,
-          characters: res.data
+          characters: res.data,
+          getData: false
         });
       })
       .catch(err => {
@@ -43,8 +43,6 @@ export default class ViewCharacters extends React.Component {
 
     return (
       <div>
-        {/* <HomeNavBar /> */}
-        <NavBar />
         { this.state.characters.map(character => {
           return (
             <Link key={character.characterId}

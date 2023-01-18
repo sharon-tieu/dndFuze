@@ -86,12 +86,12 @@ export default class App extends React.Component {
             {({ user }) => <NavBar isLoggedIn={!!user} />}
           </AppContext.Consumer>
           <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/sign-in' element={<SignInForm />} />
+            <Route path='/' element={<SignUpForm/>} />
             <Route path='/register' element={<SignUpForm />} />
+            <Route path='/sign-in' element={<SignInForm />} />
             <Route path='/characters/create' element={<CharacterCreation/>} />
             <Route path='/characters' element={<ViewCharacters/>} />
-            <Route path={urls.characterSheet()} element={<CharacterSheet />} />
+            <Route path={ urls.characterSheet() } element={<CharacterSheet />} />
           </Routes>
         </Router>
 

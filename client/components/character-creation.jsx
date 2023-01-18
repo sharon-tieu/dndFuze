@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import HomeNavBar from './home-nav-bar';
+import { matchPath } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default class CharacterCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClicked: false,
+      showForm: true,
+      // isClicked: false,
       createClicked: false,
       formValues: {
         characterName: '',
@@ -16,28 +18,27 @@ export default class CharacterCreation extends React.Component {
         characterPersonality: ''
       }
     };
-    this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
-    this.handleCharacterCreationClick = this.handleCharacterCreationClick.bind(this);
+    // this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
+    // this.handleCharacterCreationClick = this.handleCharacterCreationClick.bind(this);
     this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this);
     this.updateForm = this.updateForm.bind(this);
   }
 
-  handleAppDrawerClick() {
-    this.setState({ isClicked: !this.state.isClicked });
-  }
+  // handleAppDrawerClick() {
+  //   this.setState({ isClicked: !this.state.isClicked });
+  // }
 
-  handleCharacterCreationClick() {
-    this.setState({
-      createClicked: !this.state.createClicked,
-      isClicked: false
-    });
-  }
+  // handleCharacterCreationClick() {
+  //   this.setState({
+  //     createClicked: !this.state.createClicked
+  //     // isClicked: false
+  //   });
+  // }
 
   updateForm(event, key) {
     console.log('key:', key);
     console.log('event.target.value:', event.target.value);
     this.setState({
-      ...this.state,
       formValues: {
         ...this.state.formValues,
         [key]: event.target.value
@@ -60,6 +61,7 @@ export default class CharacterCreation extends React.Component {
       .then(res => {
         console.log('CHAR CREATION RES.DATA:', res.data);
         this.setState({
+          showForm: true,
           formValues: {
             characterName: '',
             characterRace: '',
@@ -75,20 +77,19 @@ export default class CharacterCreation extends React.Component {
   }
 
   render() {
-    let appDrawer = 'M12 4.5v15m7.5-7.5h-15';
-    let modal = 'hide';
-    let visibility = 'hide';
-    const createForm = this.state.createClicked ? '' : 'hide';
-    if (this.state.isClicked) {
-      appDrawer = 'M6 18L18 6M6 6l12 12';
-      modal = 'modal-bg-grey';
-      visibility = 'visibile';
-    }
+    // const appDrawer = 'M12 4.5v15m7.5-7.5h-15';
+    // const modal = 'hide';
+    // const visibility = 'hide';
+    const createForm = this.state.createClicked ? 'hide' : '';
+    // if (this.state.isClicked) {
+    //   appDrawer = 'M6 18L18 6M6 6l12 12';
+    //   modal = 'modal-bg-grey';
+    //   visibility = 'visibile';
+    // }
 
     return (
       <div>
-        <HomeNavBar />
-        <div className="row">
+        {/* <div className="row">
           <div className="margin-top-10px padding-10px col-30 vh-100">
             <svg xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -115,7 +116,7 @@ export default class CharacterCreation extends React.Component {
           <div className={ modal }>
             <div className="margin-top-10px padding-10px col-70 vh-100" />
           </div>
-        </div>
+        </div> */}
 
         <div id="character-creation-form">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">

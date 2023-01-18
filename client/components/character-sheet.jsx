@@ -7,7 +7,8 @@ class CharacterSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openId: null
+      openId: null,
+      loading: true
     };
   }
 
@@ -31,6 +32,7 @@ class CharacterSheet extends React.Component {
       .then(res => {
         console.log('server response:', res);
         this.setState({
+          loading: false,
           character: res.data
         });
       })
@@ -41,49 +43,130 @@ class CharacterSheet extends React.Component {
 
   render() {
     console.log('STATE:', this.state);
+    if (this.state.loading) {
+      return null;
+    }
+
     return (
       <div>
-        <p className="text-center mt-6 m-8 font-bold font-family-alber-san">
-          this is your character sheet
-        </p>
-        <div className="text-center p-3 border-solid border-2 border-indigo-600">
+        <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl">
+          Character Sheet
+        </h1>
+        <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl character-name">
+          {this.state.character[0].characterName}
+        </h1>
+        <div className="text-center p-3 hover-cursor">
+          <p className="mb-2">
+            Stats
+          </p>
+          <div className="gap-6 inline-grid grid-cols-5 justify-center hover-cursor p-5">
+            <p className="mt-3">
+              Level
+            </p>
+            <p className="mt-3">
+              Wisdom
+            </p>
+            <p className="mt-3">
+              Strength
+            </p>
+            <p className="mt-3">
+              Speed
+            </p>
+            <p className="mt-3">
+              Charisma
+            </p>
+            <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              <p className="mr-2">
+                1
+              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            </div>
+            <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              <p className="mr-2">
+                1
+              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            </div>
+            <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="mr-2 w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              <p className="mr-2">
+                1
+              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            </div>
+            <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              <p className="mr-2">
+                1
+              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            </div>
+            <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              <p className="mr-2">
+                1
+              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            </div>
+
+          </div>
+        </div>
+        <div className="text-center p-3 border-solid hover-cursor">
           <p>
             HP / Max HP
           </p>
-          <div className="flex">
-            <div className="border-solid border-2 border-grey-600 w-24">
+          <div className="flex justify-center mt-2">
+            <div className="border-solid border-2 rounded border-grey-600 w-20 mr-2">
               1
             </div>
-            <div />
-            <div className="border-solid border-2 border-grey-600 w-24">
+            <p className="text-albert-sans">
+              &#47;
+            </p>
+            <div className="border-solid border-2 rounded-md border-grey-600 w-20 ml-2">
               1
             </div>
           </div>
         </div>
-        <div className="flex text-left p-5 place-content-center space-x-5 border-solid border-2 border-indigo-600">
-          <div className="border-solid p-3 border-2 border-indigo-600">
+        <div className="flex text-left p-5 place-content-center space-x-5 p-10">
+          <div className="hover-cursor mr-20">
             <p>
-              Class
+              Class&#58; { this.state.character[0].characterClass }
             </p>
             <p>
-              Race
+              Species&#58; { this.state.character[0].characterRace }
             </p>
             <p>
-              Starting Weapon
+              Starting Weapon&#58; { this.state.character[0].characterStartingWeapon }
             </p>
             <p>
-              Personality
-            </p>
-          </div>
-          <div className="items-left border-solid p-4 border-2 border-indigo-600">
-            <p>
-              Level
-            </p>
-            <p>
-              Strength
-            </p>
-            <p>
-              Wisdom
+              Personality&#58; { this.state.character[0].characterPersonality }
             </p>
           </div>
         </div>

@@ -150,8 +150,7 @@ app.get('/api/character', authorizationMiddleware, (req, res, next) => {
 });
 
 app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
-  const { characterId } = req.query.character.characterId;
-  // req.query.characterId;
+  const { characterId } = req.query;
   const sql = `
     select *
       from "charactersCreated"

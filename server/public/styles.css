@@ -129,6 +129,10 @@
   box-shadow: 2px 2px 5px #747477;
 }
 
+.hover-cursor:hover {
+  cursor: pointer;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
