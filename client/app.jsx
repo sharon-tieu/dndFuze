@@ -12,6 +12,7 @@ import { Routes, Route, Outlet, Link, BrowserRouter as Router } from 'react-rout
 import { urls } from './constants/urls';
 import SignInForm from './components/sign-in';
 import SignUpForm from './components/create-account';
+// import SignOut from './components/sign-out';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -83,7 +84,7 @@ export default class App extends React.Component {
 
         <Router >
           <AppContext.Consumer>
-            {({ user }) => <NavBar isLoggedIn={!!user} />}
+            {({ user, handleSignOut }) => <NavBar isLoggedIn={!!user} handleSignOut={handleSignOut} />}
           </AppContext.Consumer>
           <Routes>
             <Route path='/' element={<SignUpForm/>} />
@@ -92,6 +93,7 @@ export default class App extends React.Component {
             <Route path='/characters/create' element={<CharacterCreation/>} />
             <Route path='/characters' element={<ViewCharacters/>} />
             <Route path={ urls.characterSheet() } element={<CharacterSheet />} />
+            {/* <Route path='/sign-out' element={<SignOut />} /> */}
           </Routes>
         </Router>
 

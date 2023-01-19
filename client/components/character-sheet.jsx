@@ -2,13 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from './loading-spinner';
 
 class CharacterSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       openId: null,
-      loading: true
+      loadData: true
     };
   }
 
@@ -31,10 +32,16 @@ class CharacterSheet extends React.Component {
     })
       .then(res => {
         console.log('server response:', res);
-        this.setState({
-          loading: false,
-          character: res.data
-        });
+        // this.setState({
+        //   loadData: false,
+        //   character: res.data
+        // });
+        setTimeout(() => {
+          this.setState({
+            characters: res.data,
+            loadData: false
+          });
+        }, 2000);
       })
       .catch(err => {
         console.log('ERROR:', err);
@@ -43,17 +50,17 @@ class CharacterSheet extends React.Component {
 
   render() {
     console.log('STATE:', this.state);
-    if (this.state.loading) {
-      return null;
+    if (this.state.loadData) {
+      return <LoadingSpinner />;
     }
-
+    console.log('this.state.character:', this.state.characters);
     return (
       <div>
         <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl">
           Character Sheet
         </h1>
         <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl character-name">
-          {this.state.character[0].characterName}
+          { !this.state.characters === undefined ? this.state.characters[0].characterName : null }
         </h1>
         <div className="text-center p-3 hover-cursor">
           <p className="mb-2">
@@ -80,7 +87,7 @@ class CharacterSheet extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                1
+                { this.state.characters[0].level }
               </p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -91,7 +98,7 @@ class CharacterSheet extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                1
+                {this.state.characters[0].wisdom}
               </p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -107,7 +114,7 @@ class CharacterSheet extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                1
+                {this.state.characters[0].strength}
               </p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -118,7 +125,7 @@ class CharacterSheet extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                1
+                {this.state.characters[0].speed}
               </p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -129,7 +136,7 @@ class CharacterSheet extends React.Component {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                1
+                {this.state.characters[0].charisma}
               </p>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -157,16 +164,16 @@ class CharacterSheet extends React.Component {
         <div className="flex text-left p-5 place-content-center space-x-5 p-10">
           <div className="hover-cursor mr-20">
             <p>
-              Class&#58; { this.state.character[0].characterClass }
+              Class&#58; { this.state.characters[0].characterClass }
             </p>
             <p>
-              Species&#58; { this.state.character[0].characterRace }
+              Species&#58; { this.state.characters[0].characterRace }
             </p>
             <p>
-              Starting Weapon&#58; { this.state.character[0].characterStartingWeapon }
+              Starting Weapon&#58; { this.state.characters[0].characterStartingWeapon }
             </p>
             <p>
-              Personality&#58; { this.state.character[0].characterPersonality }
+              Personality&#58; { this.state.characters[0].characterPersonality }
             </p>
           </div>
         </div>

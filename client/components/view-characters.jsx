@@ -1,16 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import NavBar from './nav-bar';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './loading-spinner';
-// import HomeNavBar from './home-nav-bar';
-// import CharacterCreation from './character-creation';
 
 export default class ViewCharacters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      getData: true,
+      loadData: true,
       characters: []
     };
   }
@@ -24,10 +21,17 @@ export default class ViewCharacters extends React.Component {
     })
       .then(res => {
         // console.log('server response:', res);
-        this.setState({
-          characters: res.data,
-          getData: false
-        });
+        // this.setState({
+        //   characters: res.data,
+        //   loadData: false
+        // });
+        setTimeout(
+          () => {
+            this.setState({
+              characters: res.data,
+              loadData: false
+            });
+          }, 2000);
       })
       .catch(err => {
         console.log('ERROR:', err);
@@ -36,11 +40,10 @@ export default class ViewCharacters extends React.Component {
 
   render() {
     console.log('STATE:', this.state);
-
-    if (this.state.getData) {
+    console.log('this.state.loadData:', this.state.loadData);
+    if (this.state.loadData) {
       return <LoadingSpinner />;
     }
-
     return (
       <div>
         { this.state.characters.map(character => {
