@@ -11,6 +11,8 @@ class CharacterSheet extends React.Component {
       openId: null,
       loadData: true
     };
+    this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
   }
 
   handleCharacterNameClick(characters) {
@@ -39,7 +41,11 @@ class CharacterSheet extends React.Component {
         setTimeout(() => {
           this.setState({
             characters: res.data,
-            loadData: false
+            loadData: false,
+            wisdom: res.data[0].wisdom,
+            strength: res.data[0].strength,
+            speed: res.data[0].speed,
+            charisma: res.data[0].charisma
           });
         }, 2000);
       })
@@ -48,11 +54,26 @@ class CharacterSheet extends React.Component {
       });
   }
 
+  handleDecrement(characterStats) {
+    this.setState({
+      ...this.state,
+      [characterStats]: this.state[characterStats] - 1
+    });
+  }
+
+  handleIncrement(characterStats) {
+    this.setState({
+      ...this.state,
+      [characterStats]: this.state[characterStats] + 1
+    });
+  }
+
   render() {
     console.log('STATE:', this.state);
     if (this.state.loadData) {
       return <LoadingSpinner />;
     }
+
     console.log('this.state.character:', this.state.characters);
     return (
       <div>
@@ -60,7 +81,7 @@ class CharacterSheet extends React.Component {
           Character Sheet
         </h1>
         <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl character-name">
-          { !this.state.characters === undefined ? this.state.characters[0].characterName : null }
+          {this.state.characters[0].characterName === undefined ? null : this.state.characters[0].characterName }
         </h1>
         <div className="text-center p-3 hover-cursor">
           <p className="mb-2">
@@ -94,13 +115,24 @@ class CharacterSheet extends React.Component {
               </svg>
             </div>
             <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="mr-2 w-4 h-4"
+                    onClick={ () => this.handleDecrement('wisdom') }>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                {this.state.characters[0].wisdom}
+                { this.state.wisdom }
               </p>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                  onClick={ () => this.handleIncrement('wisdom') }>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
               </svg>
             </div>
@@ -110,35 +142,66 @@ class CharacterSheet extends React.Component {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="mr-2 w-4 h-4">
+                  className="mr-2 w-4 h-4"
+                  onClick={ () => this.handleDecrement('strength')}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                {this.state.characters[0].strength}
+                {this.state.strength}
               </p>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                    onClick={ () => this.handleIncrement('strength')}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
               </svg>
             </div>
             <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="mr-2 w-4 h-4"
+                    onClick={() => this.handleDecrement('speed') }>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                {this.state.characters[0].speed}
+                {this.state.speed}
               </p>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                    onClick={ () => this.handleIncrement('speed') }>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
               </svg>
             </div>
             <div className="flex justify-center items-center border-solid border-2 rounded border-grey-600 w-20 mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mr-2 w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="mr-2 w-4 h-4"
+                    onClick={ () => this.handleDecrement('charisma')}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <p className="mr-2">
-                {this.state.characters[0].charisma}
+                {this.state.charisma}
               </p>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                    onClick={ () => this.handleIncrement('charisma') }>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
               </svg>
             </div>

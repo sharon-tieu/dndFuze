@@ -184,6 +184,31 @@ app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.put('api/character', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.query;
+  const {
+    wisdom,
+    strength,
+    speed,
+    charisma
+  } = req.body;
+  const updateSql = `
+    UPDATE "charactersCreated"
+    SET "wisdom"= $1,
+        "strength"= $2,
+        "speed"= $3,
+        "charisma"= $4
+    WHERE "characterId" = $5
+  `;
+  const params = [wisdom, strength, speed, charisma, characterId];
+  db.query(updateSql, params)
+    .then(result => {
+      const [statsUpdate] = result.rows;
+      res.status(201).json(statsUpdate);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

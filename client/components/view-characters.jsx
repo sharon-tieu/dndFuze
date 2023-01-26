@@ -20,11 +20,6 @@ export default class ViewCharacters extends React.Component {
       }
     })
       .then(res => {
-        // console.log('server response:', res);
-        // this.setState({
-        //   characters: res.data,
-        //   loadData: false
-        // });
         setTimeout(
           () => {
             this.setState({
