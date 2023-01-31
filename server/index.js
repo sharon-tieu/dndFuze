@@ -184,14 +184,16 @@ app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.put('api/character', authorizationMiddleware, (req, res, next) => {
-  const { characterId } = req.query;
+app.put('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.params;
+  console.log('REQ.BODY:', req.body);
   const {
     wisdom,
     strength,
     speed,
     charisma
   } = req.body;
+
   const updateSql = `
     UPDATE "charactersCreated"
     SET "wisdom"= $1,
@@ -199,14 +201,30 @@ app.put('api/character', authorizationMiddleware, (req, res, next) => {
         "speed"= $3,
         "charisma"= $4
     WHERE "characterId" = $5
+    RETURNING *
   `;
-  const params = [wisdom, strength, speed, charisma, characterId];
+  const params = [wisdom, strength, speed, charisma, Number(characterId)];
+  console.log('PARAMS:', params);
   db.query(updateSql, params)
     .then(result => {
       const [statsUpdate] = result.rows;
+      console.log('statsUpdate:', statsUpdate);
       res.status(201).json(statsUpdate);
     })
     .catch(err => next(err));
+});
+
+app.delete('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.params;
+  const deleteCharacter = `
+    DELETE
+      FROM "charactersCreated"
+      WHERE "characterId" = $1
+  `;
+  db.query(deleteCharacter, [characterId])
+    .then(result => {
+      res.status(201).json({ success: true });
+    });
 });
 
 app.use(errorMiddleware);

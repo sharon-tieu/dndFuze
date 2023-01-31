@@ -8,7 +8,6 @@ export default class CharacterCreation extends React.Component {
     super(props);
     this.state = {
       showForm: true,
-      // isClicked: false,
       createClicked: false,
       formValues: {
         characterName: '',
@@ -18,22 +17,9 @@ export default class CharacterCreation extends React.Component {
         characterPersonality: ''
       }
     };
-    // this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
-    // this.handleCharacterCreationClick = this.handleCharacterCreationClick.bind(this);
     this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this);
     this.updateForm = this.updateForm.bind(this);
   }
-
-  // handleAppDrawerClick() {
-  //   this.setState({ isClicked: !this.state.isClicked });
-  // }
-
-  // handleCharacterCreationClick() {
-  //   this.setState({
-  //     createClicked: !this.state.createClicked
-  //     // isClicked: false
-  //   });
-  // }
 
   updateForm(event, key) {
     console.log('key:', key);
@@ -77,47 +63,10 @@ export default class CharacterCreation extends React.Component {
   }
 
   render() {
-    // const appDrawer = 'M12 4.5v15m7.5-7.5h-15';
-    // const modal = 'hide';
-    // const visibility = 'hide';
     const createForm = this.state.createClicked ? 'hide' : '';
-    // if (this.state.isClicked) {
-    //   appDrawer = 'M6 18L18 6M6 6l12 12';
-    //   modal = 'modal-bg-grey';
-    //   visibility = 'visibile';
-    // }
 
     return (
       <div>
-        {/* <div className="row">
-          <div className="margin-top-10px padding-10px col-30 vh-100">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                onClick={this.handleAppDrawerClick}
-                className="w-6 h-6 app-drawer-closed">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={ appDrawer }
-              />
-            </svg>
-            <div className={ visibility }>
-              <h2
-                className="margin-top-20px padding-10px menu-item-hover-underline duration-700"
-                onClick={ this.handleCharacterCreationClick }>
-                Create
-              </h2>
-            </div>
-          </div>
-
-          <div className={ modal }>
-            <div className="margin-top-10px padding-10px col-70 vh-100" />
-          </div>
-        </div> */}
-
         <div id="character-creation-form">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
             <form className={`${createForm} bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4`}>

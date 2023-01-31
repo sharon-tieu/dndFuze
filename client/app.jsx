@@ -94,6 +94,7 @@ export default class App extends React.Component {
             <Route path='/characters' element={<ViewCharacters/>} />
             <Route path={ urls.characterSheet() } element={<CharacterSheet />} />
             {/* <Route path='/sign-out' element={<SignOut />} /> */}
+            <Route path='/api/character/:characterId' element={<CharacterSheet />} />
           </Routes>
         </Router>
 
