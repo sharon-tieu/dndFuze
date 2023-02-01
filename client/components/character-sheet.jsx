@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { matchPath, Link } from 'react-router';
 import LoadingSpinner from './loading-spinner';
+import ViewCharacters from './view-characters';
 
 class CharacterSheet extends React.Component {
   constructor(props) {
@@ -134,7 +135,7 @@ class CharacterSheet extends React.Component {
     }
 
     if (this.state.deleted === true) {
-      return <h1>Deleted</h1>;
+      return <ViewCharacters />;
     }
     console.log('4: THIS.STATE:', this.state);
     console.log('5: THIS.STATE.CHARACTERS:', this.state.characters);
@@ -304,12 +305,12 @@ class CharacterSheet extends React.Component {
           </div>
         </div>
         <div className="text-align-center pb-8">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focuse:outline-none focus:shadow-outline" type="button"
+          <button className="bg-blue-500 hover:bg-blue-700 mr-2 text-white font-bold py-2 px-4 rounded focuse:outline-none focus:shadow-outline" type="button"
             onClick={event => this.handleSaveChangesClick(event, 'character')}
             >
             Save Changes
           </button>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focuse:outline-none focus:shadow-outline" type="button"
+          <button className="bg-red-500 hover:bg-red-700 ml-2 text-white font-bold py-2 px-4 rounded focuse:outline-none focus:shadow-outline" type="button"
             onClick={event => this.handleDeleteClick(event, 'character')}
             >
             Delete
