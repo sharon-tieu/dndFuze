@@ -43,7 +43,7 @@ export default class SignInForm extends React.Component {
     console.log('USER:', user);
     console.log('THIS.CONTEXT:', this.context);
     if (user) {
-      return <Navigate replace to="#user/characters" />;
+      return <Navigate replace to="/characters" />;
       // return <Redirect to="characters" />;
     }
 

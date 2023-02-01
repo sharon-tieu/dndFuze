@@ -36,9 +36,14 @@ export default class ViewCharacters extends React.Component {
   render() {
     console.log('STATE:', this.state);
     console.log('this.state.loadData:', this.state.loadData);
+
     if (this.state.loadData) {
       return <LoadingSpinner />;
     }
+    if (this.state.characters.length === 0) {
+      return <h1 className="text-center mt-10">No characters have been created. Please create one.</h1>;
+    }
+
     return (
       <div>
         { this.state.characters.map(character => {
