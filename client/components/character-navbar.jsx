@@ -9,24 +9,14 @@ export default class CharacterNavbar extends React.Component {
       isLoggedOut: false,
       user: ''
     };
-    console.log('props (character-navbar component):', props);
     this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   handleSignOut() {
-    // window.localStorage.removeItem('react-context-jwt');
-    // console.log('this.props handleSignOut():', this.props);
-    // this.setState = {
-    //   isLoggedOut: true,
-    //   user: null
-    // };
     this.context.handleSignOut();
   }
 
   render() {
-    console.log('this.context:', this.context);
-    // console.log('something random');
-    console.log('character-navbar this.state:', this.state);
     if (!this.context.user) {
       return <Navigate replace to="/sign-in" />;
     }
@@ -50,7 +40,6 @@ export default class CharacterNavbar extends React.Component {
             <Link to='/characters'>Characters</Link>
             <Link to='/characters/create'>Create</Link>
             <Link to='/sign-in' onClick={this.handleSignOut}>Sign Out</Link>
-            {/* <Link onClick={this.handleSignOut} >Sign Out </Link> */}
           </div>
         </div>
       </nav>

@@ -14,11 +14,12 @@ export default class ViewCharacters extends React.Component {
 
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
-    axios.get('/api/character', {
-      headers: {
-        'X-Access-TOKEN': token
-      }
-    })
+    axios
+      .get('/api/character', {
+        headers: {
+          'X-Access-TOKEN': token
+        }
+      })
       .then(res => {
         setTimeout(
           () => {
@@ -34,9 +35,6 @@ export default class ViewCharacters extends React.Component {
   }
 
   render() {
-    console.log('STATE:', this.state);
-    console.log('this.state.loadData:', this.state.loadData);
-
     if (this.state.loadData) {
       return <LoadingSpinner />;
     }
