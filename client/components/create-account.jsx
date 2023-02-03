@@ -22,12 +22,10 @@ export default class SignUpForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('handle submit state:', this.state);
     event.preventDefault();
 
     axios.post('/api/auth/sign-up', { username: this.state.username, password: this.state.password })
       .then(res => {
-        console.log('res.data:', res.data);
         this.setState({ username: '', password: '' });
       })
       .catch(err => {

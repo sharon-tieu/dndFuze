@@ -29,7 +29,6 @@ export default class stats extends React.Component {
     };
     axios.post('/api/character', this.state.statValues, config)
       .then(res => {
-        console.log('STATVALUES DATA:', res.data)
         this.setState({
           statValues.level = statValues.level + 1,
           statValues.wisdom = statValues.wisdom + 1,
@@ -54,7 +53,6 @@ export default class stats extends React.Component {
     };
     axios.post('/api/character', this.state.statValues, config)
       .then(res => {
-        console.log('STATVALUES DATA:', res.data)
         this.setState({
           statValues.level = statValues.level - 1,
           statValues.wisdom = statValues.wisdom - 1,

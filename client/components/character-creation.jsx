@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { matchPath } from 'react-router';
-import { Link } from 'react-router-dom';
 
 export default class CharacterCreation extends React.Component {
   constructor(props) {
@@ -22,8 +20,6 @@ export default class CharacterCreation extends React.Component {
   }
 
   updateForm(event, key) {
-    console.log('key:', key);
-    console.log('event.target.value:', event.target.value);
     this.setState({
       formValues: {
         ...this.state.formValues,
@@ -33,19 +29,15 @@ export default class CharacterCreation extends React.Component {
   }
 
   handleCharacterSubmit(event) {
-    console.log('character state:', this.state);
-    console.log('submit click detected!');
     const config = {
       headers: {
         'X-Access-Token': localStorage.getItem('react-context-jwt')
       }
     };
 
-    console.log('this.state.formvalues:', this.state.formValues);
-
-    axios.post('/api/character', this.state.formValues, config)
+    axios
+      .post('/api/character', this.state.formValues, config)
       .then(res => {
-        console.log('CHAR CREATION RES.DATA:', res.data);
         this.setState({
           showForm: true,
           formValues: {

@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
-// import { Route, Switch, useHistory } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 export default class SignInForm extends React.Component {
@@ -26,11 +24,9 @@ export default class SignInForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('state:', this.state);
     event.preventDefault();
     axios.post('/api/auth/sign-in', { username: this.state.username, password: this.state.password })
       .then(res => {
-        console.log('res.data:', res.data);
         this.context.handleSignIn(res.data);
       })
       .catch(err => {
@@ -40,11 +36,8 @@ export default class SignInForm extends React.Component {
 
   render() {
     const user = this.context.user;
-    console.log('USER:', user);
-    console.log('THIS.CONTEXT:', this.context);
     if (user) {
       return <Navigate replace to="/characters" />;
-      // return <Redirect to="characters" />;
     }
 
     return (

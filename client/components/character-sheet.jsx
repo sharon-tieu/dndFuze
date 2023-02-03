@@ -7,7 +7,6 @@ import ViewCharacters from './view-characters';
 class CharacterSheet extends React.Component {
   constructor(props) {
     super(props);
-    console.log('PROPS:', props);
     this.state = {
       loadData: true,
       saveChanges: false,
@@ -28,16 +27,13 @@ class CharacterSheet extends React.Component {
     this.setState({
       characterId: characters.characterId.target.value
     });
-    console.log(this.state);
   }
 
   componentDidMount() {
     const viewCharacterInfo = window.localStorage.getItem('react-context-jwt');
-    console.log('viewCharacterInfo:', viewCharacterInfo);
     const { characterId } = matchPath(window.location.pathname, {
       path: '/characters/:characterId'
     }).params;
-    console.log('CHARACTERID:', characterId);
     axios
       .get('/api/character/details?characterId=' + characterId, {
         headers: {
@@ -45,8 +41,6 @@ class CharacterSheet extends React.Component {
         }
       })
       .then(res => {
-        console.log('server response:', res);
-
         setTimeout(() => {
           this.setState({
             characterId,
@@ -98,7 +92,6 @@ class CharacterSheet extends React.Component {
     axios
       .put(`/api/character/${this.state.characterId}`, updatedCharacterStats, config)
       .then(res => {
-        console.log('2:', this.state);
         this.setState({
           saveChanges: true,
           loadData: false,
@@ -129,7 +122,6 @@ class CharacterSheet extends React.Component {
   };
 
   render() {
-    console.log('3:', this.state);
     if (this.state.loadData) {
       return <LoadingSpinner />;
     }
@@ -137,8 +129,7 @@ class CharacterSheet extends React.Component {
     if (this.state.deleted === true) {
       return <ViewCharacters />;
     }
-    console.log('4: THIS.STATE:', this.state);
-    console.log('5: THIS.STATE.CHARACTERS:', this.state.characters);
+
     return (
       <div>
         <h1 className="hover-cursor text-center mt-6 m-8 font-bold font-family-alber-san text-2xl">
