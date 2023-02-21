@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import RegisterOrSignInNavbar from './register-or-sign-in-Navbar';
 import CharacterNavbar from './character-navbar';
 

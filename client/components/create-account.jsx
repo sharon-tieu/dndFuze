@@ -24,7 +24,12 @@ export default class SignUpForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    axios.post('/api/auth/sign-up', { username: this.state.username, password: this.state.password })
+    axios
+      .post('/api/auth/sign-up',
+        {
+          username: this.state.username,
+          password: this.state.password
+        })
       .then(res => {
         this.setState({ username: '', password: '' });
       })
@@ -36,7 +41,6 @@ export default class SignUpForm extends React.Component {
   render() {
     return (
       <div>
-        {/* <NavBar /> */}
         <div id="registration-form-container">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

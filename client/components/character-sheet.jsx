@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { matchPath, Link } from 'react-router';
+import { matchPath } from 'react-router';
 import LoadingSpinner from './loading-spinner';
 import ViewCharacters from './view-characters';
 
