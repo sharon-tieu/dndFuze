@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-// import CharacterCreation from './character-creation';
-
 export default class ViewCharacters extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +11,12 @@ export default class ViewCharacters extends React.Component {
 
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
-    axios.get('/api/character', {
-      // params: {
-      //   userId: 1
-      // },
-      headers: {
-        'X-Access-TOKEN': token
-      }
-    })
+    axios
+      .get('/api/character', {
+        headers: {
+          'X-Access-TOKEN': token
+        }
+      })
       .then(res => {
         // console.log('server response:', res);
         this.setState({
@@ -33,8 +29,6 @@ export default class ViewCharacters extends React.Component {
   }
 
   render() {
-    console.log('STATE:', this.state);
-
     return (
       <div>
         <nav className="navbar-bg-color">

@@ -26,7 +26,11 @@ export default class SignInForm extends React.Component {
   handleSubmit(event) {
     console.log('state:', this.state);
     event.preventDefault();
-    axios.post('/api/auth/sign-in', { username: this.state.username, password: this.state.password })
+    axios
+      .post('/api/auth/sign-in', {
+        username: this.state.username,
+        password: this.state.password
+      })
       .then(res => {
         console.log('res.data:', res.data);
         this.context.handleSignIn(res.data);

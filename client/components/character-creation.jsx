@@ -22,7 +22,6 @@ export default class CharacterCreation extends React.Component {
   }
 
   handleAppDrawerClick() {
-    // console.log('detected!');
     this.setState({ isClicked: !this.state.isClicked });
   }
 
