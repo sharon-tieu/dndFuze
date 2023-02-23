@@ -17,15 +17,13 @@ const db = new pg.Pool({ // eslint-disable-line
 });
 
 const app = express();
-
 const jsonMiddleware = express.json();
 
 app.use(staticMiddleware);
-
 app.use(errorMiddleware);
-
 app.use(jsonMiddleware);
 
+// API endpoing that handles creating an account
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   console.log('REQ.BODY:', req.body);
@@ -51,6 +49,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// API end point that handles signing in
 app.post('/api/auth/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -90,6 +89,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+// API endpoint that handles creating a new character
 app.post('/api/character', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   console.log('USERID:', userId);
@@ -149,6 +149,7 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+// API endpoint that handles viewing all of the user's characters that he/she created (Character cards)
 app.get('/api/character', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   const sql = `
@@ -165,6 +166,7 @@ app.get('/api/character', authorizationMiddleware, (req, res, next) => {
 
 });
 
+// API endpoing that handles viewing a character's character sheet
 app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
   const { characterId } = req.query;
   const sql = `
@@ -180,9 +182,9 @@ app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+// API endpoint that handles editing an individual character's stats/details/information
 app.put('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
   const { characterId } = req.params;
-  console.log('REQ.BODY:', req.body);
   const {
     wisdom,
     strength,
@@ -210,6 +212,7 @@ app.put('/api/character/:characterId', authorizationMiddleware, (req, res, next)
     .catch(err => next(err));
 });
 
+// API endpoint that handles deleting a character from the database
 app.delete('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
   const { characterId } = req.params;
   const deleteCharacter = `
