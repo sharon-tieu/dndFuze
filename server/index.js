@@ -26,10 +26,6 @@ app.use(errorMiddleware);
 
 app.use(jsonMiddleware);
 
-app.get('/api/hello', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   console.log('REQ.BODY:', req.body);
