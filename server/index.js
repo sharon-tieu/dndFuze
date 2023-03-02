@@ -17,19 +17,13 @@ const db = new pg.Pool({ // eslint-disable-line
 });
 
 const app = express();
-
 const jsonMiddleware = express.json();
 
 app.use(staticMiddleware);
-
 app.use(errorMiddleware);
-
 app.use(jsonMiddleware);
 
-app.get('/api/hello', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
+// API endpoing that handles creating an account
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   console.log('REQ.BODY:', req.body);
@@ -55,6 +49,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// API end point that handles signing in
 app.post('/api/auth/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -94,6 +89,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+// API endpoint that handles creating a new character
 app.post('/api/character', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   console.log('USERID:', userId);
@@ -119,12 +115,32 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
   if (!characterPersonality) {
     throw new ClientError(400, 'Missing Character Personality');
   }
+  let wisdom;
+  let strength;
+  let speed;
+  let charisma;
+  if (characterClass === 'warrior') {
+    wisdom = 3;
+    strength = 5;
+    speed = 2;
+    charisma = 2;
+  } else if (characterClass === 'cleric') {
+    wisdom = 4;
+    strength = 2;
+    speed = 3;
+    charisma = 3;
+  } else if (characterClass === 'assassin') {
+    wisdom = 3;
+    strength = 3;
+    speed = 5;
+    charisma = 4;
+  }
   const sql = `
-    insert into "charactersCreated" ("userId", "characterName", "characterRace", "characterClass", "characterStartingWeapon", "characterPersonality")
-    values ($1, $2, $3, $4, $5, $6)
+    insert into "charactersCreated" ("userId", "characterName", "characterRace", "characterClass", "characterStartingWeapon", "characterPersonality", "level", "wisdom", "strength", "speed", "charisma")
+    values ($1, $2, $3, $4, $5, $6, 1, $7, $8, $9, $10)
     returning *
   `;
-  const params = [userId, characterName, characterRace, characterClass, characterStartingWeapon, characterPersonality];
+  const params = [userId, characterName, characterRace, characterClass, characterStartingWeapon, characterPersonality, wisdom, strength, speed, charisma];
   db.query(sql, params)
     .then(result => {
       const [newCharacter] = result.rows;
@@ -133,8 +149,8 @@ app.post('/api/character', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+// API endpoint that handles viewing all of the user's characters that he/she created (Character cards)
 app.get('/api/character', authorizationMiddleware, (req, res, next) => {
-  // try {
   const { userId } = req.user;
   const sql = `
       select *
@@ -147,9 +163,67 @@ app.get('/api/character', authorizationMiddleware, (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
-  // } catch (error) {
-  //   console.error({ error });
-  // }
+
+});
+
+// API endpoing that handles viewing a character's character sheet
+app.get('/api/character/details', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.query;
+  const sql = `
+    select *
+      from "charactersCreated"
+      where "characterId" = $1
+    `;
+  const params = [characterId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+// API endpoint that handles editing an individual character's stats/details/information
+app.put('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.params;
+  const {
+    wisdom,
+    strength,
+    speed,
+    charisma
+  } = req.body;
+
+  const updateSql = `
+    UPDATE "charactersCreated"
+    SET "wisdom"= $1,
+        "strength"= $2,
+        "speed"= $3,
+        "charisma"= $4
+    WHERE "characterId" = $5
+    RETURNING *
+  `;
+  const params = [wisdom, strength, speed, charisma, Number(characterId)];
+  console.log('PARAMS:', params);
+  db.query(updateSql, params)
+    .then(result => {
+      const [statsUpdate] = result.rows;
+      console.log('statsUpdate:', statsUpdate);
+      res.status(201).json(statsUpdate);
+    })
+    .catch(err => next(err));
+});
+
+// API endpoint that handles deleting a character from the database
+app.delete('/api/character/:characterId', authorizationMiddleware, (req, res, next) => {
+  const { characterId } = req.params;
+  const deleteCharacter = `
+    DELETE
+      FROM "charactersCreated"
+      WHERE "characterId" = $1
+  `;
+  db.query(deleteCharacter, [characterId])
+    .then(result => {
+      res.status(201).json({ success: true });
+    });
 });
 
 app.use('/api', (req, res) => {

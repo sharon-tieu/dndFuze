@@ -5,7 +5,7 @@ export default class CharacterCreation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClicked: false,
+      showForm: true,
       createClicked: false,
       formValues: {
         characterName: '',
@@ -15,27 +15,12 @@ export default class CharacterCreation extends React.Component {
         characterPersonality: ''
       }
     };
-    this.handleAppDrawerClick = this.handleAppDrawerClick.bind(this);
-    this.handleCharacterCreationClick = this.handleCharacterCreationClick.bind(this);
     this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this);
     this.updateForm = this.updateForm.bind(this);
   }
 
-  handleAppDrawerClick() {
-    this.setState({ isClicked: !this.state.isClicked });
-  }
-
-  handleCharacterCreationClick() {
-    // console.log('create detected');
-    this.setState({
-      createClicked: !this.state.createClicked,
-      isClicked: false
-    });
-  }
-
   updateForm(event, key) {
     this.setState({
-      ...this.state,
       formValues: {
         ...this.state.formValues,
         [key]: event.target.value
@@ -50,9 +35,10 @@ export default class CharacterCreation extends React.Component {
       }
     };
 
-    axios.post('/api/character', this.state.formValues, config)
+
       .then(res => {
         this.setState({
+          showForm: true,
           formValues: {
             characterName: '',
             characterRace: '',
@@ -68,78 +54,10 @@ export default class CharacterCreation extends React.Component {
   }
 
   render() {
-    let appDrawer = 'M12 4.5v15m7.5-7.5h-15';
-    let modal = 'hide';
-    let visibility = 'hide';
-    const createForm = this.state.createClicked ? '' : 'hide';
-    if (this.state.isClicked) {
-      appDrawer = 'M6 18L18 6M6 6l12 12';
-      modal = 'modal-bg-grey';
-      visibility = 'visibile';
-    }
+    const createForm = this.state.createClicked ? 'hide' : '';
 
     return (
       <div>
-        <nav className="navbar-bg-color">
-          <div className="bg-gradient-to-r gradient-cotton-candy" />
-          <div className="px-8 max-w-6xl mx-auto">
-            <div className="flex justify-between">
-              <div>
-                <a href="#" className="flex items-center py-2 px-3 navbar-item-color font-family-alber-sans">
-                  <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                  </svg>
-                  <span>DnDFuze</span>
-                </a>
-              </div>
-              <div />
-
-              <a href='#view-characters' className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
-                Characters
-              </a>
-              <div className="flex items-center space-x-3 navbar-item-color font-family-albert-sans navbar-items">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <div className="row">
-          <div className="margin-top-10px padding-10px col-30 vh-100">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                onClick={this.handleAppDrawerClick}
-                className="w-6 h-6 app-drawer-closed">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={ appDrawer }
-              />
-            </svg>
-            <div className={ visibility }>
-              <h2
-                className="margin-top-20px padding-10px menu-item-hover-underline duration-700"
-                onClick={ this.handleCharacterCreationClick }>
-                Create
-              </h2>
-            </div>
-          </div>
-
-          <div className={ modal }>
-            <div className="margin-top-10px padding-10px col-70 vh-100" />
-          </div>
-        </div>
-
         <div id="character-creation-form">
           <div className="w-full max-w-xs inline-block margin-0-auto items-center justify-center" id="registration-form">
             <form className={`${createForm} bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4`}>
@@ -234,25 +152,6 @@ export default class CharacterCreation extends React.Component {
                   Submit
                 </button>
               </div>
-
-              {/* <h1 className="padding-20px text-3xl hover:text-base text-center margin-bottom-7px">
-                Created!
-              </h1>
-              <div>
-                <div className="text-center">
-
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 display-inline">
-                    <path strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-              </div> */}
             </form>
           </div>
         </div>

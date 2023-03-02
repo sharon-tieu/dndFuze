@@ -22,7 +22,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    // console.log('this.state:', this.state);
     return (
       <div>
         <div className="h-100 bg-purple">
