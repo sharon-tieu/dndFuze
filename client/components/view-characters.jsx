@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import LoadingSpinner from './loading-spinner';
 
 export default class ViewCharacters extends React.Component {
   constructor(props) {
@@ -35,13 +33,6 @@ export default class ViewCharacters extends React.Component {
   }
 
   render() {
-    if (this.state.loadData) {
-      return <LoadingSpinner />;
-    }
-    if (this.state.characters.length === 0) {
-      return <h1 className="text-center mt-10">No characters have been created. Please create one.</h1>;
-    }
-
     return (
       <div>
         { this.state.characters.map(character => {

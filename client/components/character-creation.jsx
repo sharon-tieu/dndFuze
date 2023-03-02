@@ -35,8 +35,7 @@ export default class CharacterCreation extends React.Component {
       }
     };
 
-    axios
-      .post('/api/character', this.state.formValues, config)
+
       .then(res => {
         this.setState({
           showForm: true,
