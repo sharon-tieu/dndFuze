@@ -18,7 +18,7 @@ I've always been interested in character creation and world-building so a friend
 - AWS E2(w/dokku)
 
 ## Live Deployment
-Check it out! --> https://ddapp.dev/
+Check it out! --> https://dndfuze.ddapp.dev/
 
 ## Features
 - User can create a character with name, species, class, starting weapon, and personality
