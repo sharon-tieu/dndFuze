@@ -14,7 +14,7 @@ I've always been interested in character creation and world-building so a friend
 - Express
 - PostgreSQL
 - HTML5
-- CSS3
+- TAILWINDCSS
 - AWS E2(w/dokku)
 
 ## Live Deployment
