@@ -34,7 +34,9 @@ Check it out! --> https://dndfuze.ddapp.dev/
 - User can create a campaign
 
 ## Preview
-! Kapture 2023-02-04 at 11.57.47.gif
+https://user-images.githubusercontent.com/103021766/229230172-c03671d1-417f-49fd-8125-01d88851fb30.mp4
+
+
 
 ## System Requirements
 - Node.js 10 or higher
