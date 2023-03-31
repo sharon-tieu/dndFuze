@@ -34,10 +34,7 @@ Check it out! --> https://dndfuze.ddapp.dev/
 - User can create a campaign
 
 ## Preview
-https://user-images.githubusercontent.com/103021766/229230172-c03671d1-417f-49fd-8125-01d88851fb30.mp4
-https://user-images.githubusercontent.com/103021766/229232209-c0486eb3-b65b-4309-8573-4e2fbedd696d.mp4
-https://user-images.githubusercontent.com/103021766/229232556-38ca1839-0117-41e6-b5dc-0a0a3d9db455.mp4
-https://user-images.githubusercontent.com/103021766/229232729-4a9fabd5-fae6-41e4-8e11-3ac6ea1e872e.mp4
+https://user-images.githubusercontent.com/103021766/229234170-f8316e0b-d9f7-485b-acaa-c8ce5eb0ecc5.mp4
 
 ## System Requirements
 - Node.js 10 or higher
