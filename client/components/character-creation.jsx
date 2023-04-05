@@ -34,8 +34,8 @@ export default class CharacterCreation extends React.Component {
         'X-Access-Token': localStorage.getItem('react-context-jwt')
       }
     };
-
-
+    axios
+      .post('/api/character', this.state.formValues, config)
       .then(res => {
         this.setState({
           showForm: true,
