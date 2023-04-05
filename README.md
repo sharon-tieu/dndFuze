@@ -1,3 +1,5 @@
+![dndfuze-logo](https://user-images.githubusercontent.com/103021766/229954207-ca4abf06-e7a7-4e86-9e1d-f4871a6630ac.png)
+
 # DnDFuze
 
 A PERN-stack application for Dungeons and Dragons game masters to manage their character stats.
