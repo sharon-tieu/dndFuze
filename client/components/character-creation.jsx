@@ -49,7 +49,7 @@ export default class CharacterCreation extends React.Component {
         });
       })
       .catch(err => {
-        console.log('res.err:', err);
+        console.error('res.err:', err);
       });
   }
 
